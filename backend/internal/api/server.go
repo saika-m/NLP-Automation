@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"tashi-backend/internal/config"
-	"tashi-backend/internal/services"
+	"nlp-automation-backend/internal/config"
+	"nlp-automation-backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -199,7 +199,7 @@ func (s *Server) setupRoutes() {
 
 func (s *Server) rootHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Welcome to Tashi Backend API",
+		"message": "Welcome to NLP-Automation Backend API",
 		"version": "1.0.0",
 		"docs":    "Visit /api/system/info for system information",
 		"endpoints": gin.H{

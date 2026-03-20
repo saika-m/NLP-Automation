@@ -1,6 +1,6 @@
-# Tashi - Personal Automation Command Executor
+# NLP-Automation - Personal Automation Command Executor
 
-Tashi is a user-friendly desktop application that helps you automate tasks by generating and executing commands based on natural language descriptions. It uses GPT-4o-mini for cost-effective AI-powered command generation and provides a clean, intuitive interface designed for both technical and non-technical users.
+NLP-Automation is a user-friendly desktop application that helps you automate tasks by generating and executing commands based on natural language descriptions. It uses GPT-4o-mini for cost-effective AI-powered command generation and provides a clean, intuitive interface designed for both technical and non-technical users.
 
 ## 🚀 Key Features
 
@@ -24,7 +24,7 @@ Tashi is a user-friendly desktop application that helps you automate tasks by ge
 ### 1. Clone the Repository
 ```bash
 git clone <repository-url>
-cd Tashi
+cd NLP-Automation
 ```
 
 ### 2. Install Dependencies
@@ -94,7 +94,7 @@ cd frontend && npm run dev
    - "Find all photos on desktop and organize them by date"
    - "Clean up downloads folder by removing old files"
 
-3. **Smart Path Understanding**: No need to specify full paths - Tashi understands:
+3. **Smart Path Understanding**: No need to specify full paths - NLP-Automation understands:
    - "desktop" → ~/Desktop
    - "downloads" → ~/Downloads
    - "documents" → ~/Documents
@@ -102,7 +102,7 @@ cd frontend && npm run dev
 
 ### Command Execution
 1. **Dry Run Mode** (default): Preview commands before execution
-2. **Generate Commands**: Click to see what Tashi will do
+2. **Generate Commands**: Click to see what NLP-Automation will do
 3. **Review & Execute**: Check the commands and safety warnings, then execute if satisfied
 
 ## 🌟 Example Tasks
@@ -201,7 +201,7 @@ npm run package:linux
 ## 📁 Project Structure
 
 ```
-Tashi/
+NLP-Automation/
 ├── docker-compose.yml     # Docker orchestration for full stack
 ├── README.md              # This file
 ├── backend/               # Go backend server

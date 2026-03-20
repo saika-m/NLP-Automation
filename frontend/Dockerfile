@@ -11,16 +11,16 @@ COPY renderer.js /usr/share/nginx/html/
 COPY main.js /usr/share/nginx/html/
 
 # Create non-root user
-RUN addgroup -g 1001 -S tashi && \
-    adduser -S -D -H -u 1001 -h /var/cache/nginx -s /sbin/nologin -G tashi -g tashi tashi
+RUN addgroup -g 1001 -S nlp-automation && \
+    adduser -S -D -H -u 1001 -h /var/cache/nginx -s /sbin/nologin -G nlp-automation -g nlp-automation nlp-automation
 
 # Change ownership of nginx directories
-RUN chown -R tashi:tashi /var/cache/nginx && \
-    chown -R tashi:tashi /var/log/nginx && \
-    chown -R tashi:tashi /etc/nginx/conf.d
+RUN chown -R nlp-automation:nlp-automation /var/cache/nginx && \
+    chown -R nlp-automation:nlp-automation /var/log/nginx && \
+    chown -R nlp-automation:nlp-automation /etc/nginx/conf.d
 
 # Switch to non-root user
-USER tashi
+USER nlp-automation
 
 # Expose port
 EXPOSE 3000

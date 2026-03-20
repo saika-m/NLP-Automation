@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"tashi-backend/internal/config"
+	"nlp-automation-backend/internal/config"
 )
 
 type CompilerService struct {
@@ -105,7 +105,7 @@ func (c *CompilerService) needsCompilation(language string) bool {
 // getExecutableName generates executable filename based on platform
 func (c *CompilerService) getExecutableName(taskID, platform string) string {
 	timestamp := time.Now().Format("20060102_150405")
-	baseName := fmt.Sprintf("tashi_executable_%s_%s", taskID[:8], timestamp)
+	baseName := fmt.Sprintf("nlp-automation_executable_%s_%s", taskID[:8], timestamp)
 
 	switch strings.ToLower(platform) {
 	case "windows":
@@ -219,7 +219,7 @@ func (c *CompilerService) compileRust(ctx context.Context, sourcePath, outputPat
 
 	// Create Cargo.toml
 	cargoToml := `[package]
-name = "tashi_script"
+name = "nlp-automation_script"
 version = "0.1.0"
 edition = "2021"
 

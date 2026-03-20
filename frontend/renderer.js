@@ -1,4 +1,4 @@
-// Tashi Frontend - Modern Renderer
+// NLP-Automation Frontend - Modern Renderer
 // Version 2.0.0
 
 // Import required modules for Electron
@@ -9,7 +9,7 @@ const hljs = require('highlight.js');
 const { marked } = require('marked');
 
 // Global application state
-class TashiApp {
+class NLPAutomationApp {
   constructor() {
     this.store = new Store();
     this.currentView = 'dashboard';
@@ -51,7 +51,7 @@ class TashiApp {
     setInterval(() => this.checkBackendStatus(), 10000);
     setInterval(() => this.updateClock(), 1000);
     
-    this.log('info', 'Tashi application initialized successfully');
+    this.log('info', 'NLP-Automation application initialized successfully');
   }
 
   async loadSettings() {
@@ -407,7 +407,7 @@ class TashiApp {
         <div class="activity-item">
           <span class="activity-icon">🎯</span>
           <div class="activity-content">
-            <div class="activity-title">Welcome to Tashi!</div>
+            <div class="activity-title">Welcome to NLP-Automation!</div>
             <div class="activity-desc">Your AI-powered automation assistant is ready</div>
           </div>
           <div class="activity-time">Just now</div>
@@ -916,7 +916,7 @@ class TashiApp {
 
     try {
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const filename = `tashi-commands-${timestamp}.sh`;
+      const filename = `nlp-automation-commands-${timestamp}.sh`;
       const commandsText = this.currentCommands.join('\n');
       
       const blob = new Blob([commandsText], { type: 'text/plain' });
@@ -1304,7 +1304,7 @@ class TashiApp {
 
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  window.app = new TashiApp();
+  window.app = new NLPAutomationApp();
 });
 
 // Global functions for onclick handlers
@@ -1346,5 +1346,5 @@ window.closeModal = (modalId) => {
 
 // Export for testing
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = TashiApp;
+  module.exports = NLPAutomationApp;
 }

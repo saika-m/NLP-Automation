@@ -439,7 +439,7 @@ func (s *OfficeService) getBestScriptLanguage(application string) string {
 
 func (s *OfficeService) saveScript(script, language string) (string, error) {
 	// Create scripts directory if it doesn't exist
-	scriptsDir := filepath.Join(os.TempDir(), "tashi_office_scripts")
+	scriptsDir := filepath.Join(os.TempDir(), "nlp-automation_office_scripts")
 	if err := os.MkdirAll(scriptsDir, 0755); err != nil {
 		return "", fmt.Errorf("failed to create scripts directory: %w", err)
 	}
@@ -590,7 +590,7 @@ func (s *OfficeService) getLibreOfficeVersion() string {
 
 // Cleanup old scripts
 func (s *OfficeService) CleanupOldScripts() error {
-	scriptsDir := filepath.Join(os.TempDir(), "tashi_office_scripts")
+	scriptsDir := filepath.Join(os.TempDir(), "nlp-automation_office_scripts")
 
 	// Remove scripts older than 24 hours
 	cutoff := time.Now().Add(-24 * time.Hour)

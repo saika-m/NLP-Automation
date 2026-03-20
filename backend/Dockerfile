@@ -21,7 +21,7 @@ RUN go mod download
 COPY . .
 
 # Build the application
-RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o tashi-backend main.go
+RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o nlp-automation-backend main.go
 
 # Final stage
 FROM debian:bullseye-slim
@@ -36,29 +36,29 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Create user with sudo privileges
-RUN groupadd -g 1001 tashi && \
-    useradd -r -u 1001 -g tashi -d /app -s /bin/bash tashi && \
-    echo 'tashi ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+RUN groupadd -g 1001 nlp-automation && \
+    useradd -r -u 1001 -g nlp-automation -d /app -s /bin/bash nlp-automation && \
+    echo 'nlp-automation ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Set working directory
 WORKDIR /app
 
 # Copy binary from builder
-COPY --from=builder /app/tashi-backend .
+COPY --from=builder /app/nlp-automation-backend .
 
 # Create required directories and set permissions
 RUN mkdir -p uploads outputs temp data && \
-    chown -R tashi:tashi /app
+    chown -R nlp-automation:nlp-automation /app
 
-# Create entrypoint script that runs as root first to fix permissions, then switches to tashi
+# Create entrypoint script that runs as root first to fix permissions, then switches to nlp-automation
 RUN echo '#!/bin/bash' > /entrypoint.sh && \
     echo 'set -e' >> /entrypoint.sh && \
     echo '# Create directories as root first' >> /entrypoint.sh && \
     echo 'mkdir -p /app/data /app/data/uploads /app/data/outputs /app/data/temp' >> /entrypoint.sh && \
     echo '# Fix ownership' >> /entrypoint.sh && \
-    echo 'chown -R tashi:tashi /app/data /app/uploads /app/outputs /app/temp' >> /entrypoint.sh && \
-    echo '# Switch to tashi user and execute command' >> /entrypoint.sh && \
-    echo 'exec su tashi -c "$*"' >> /entrypoint.sh && \
+    echo 'chown -R nlp-automation:nlp-automation /app/data /app/uploads /app/outputs /app/temp' >> /entrypoint.sh && \
+    echo '# Switch to nlp-automation user and execute command' >> /entrypoint.sh && \
+    echo 'exec su nlp-automation -c "$*"' >> /entrypoint.sh && \
     chmod +x /entrypoint.sh
 
 # Set entrypoint
@@ -71,5 +71,5 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
 
-# Run as root initially to handle permissions, then switch to tashi via entrypoint
-CMD ["./tashi-backend"]
+# Run as root initially to handle permissions, then switch to nlp-automation via entrypoint
+CMD ["./nlp-automation-backend"]

@@ -1,12 +1,12 @@
-# Tashi Frontend
+# NLP-Automation Frontend
 
-Tashi frontend is an Electron-based desktop application that provides a user-friendly interface for the Tashi automation command executor. It communicates with the Tashi backend API to generate and execute commands based on natural language descriptions.
+NLP-Automation frontend is an Electron-based desktop application that provides a user-friendly interface for the NLP-Automation automation command executor. It communicates with the NLP-Automation backend API to generate and execute commands based on natural language descriptions.
 
 ## Features
 
 - **Electron Desktop App**: Cross-platform desktop application (Windows, macOS, Linux)
-- **Clean User Interface**: Modern, intuitive design with the Tashi color scheme
-- **Real-time Backend Communication**: Connects to the Tashi backend API
+- **Clean User Interface**: Modern, intuitive design with the NLP-Automation color scheme
+- **Real-time Backend Communication**: Connects to the NLP-Automation backend API
 - **Command Preview**: Shows generated commands before execution
 - **Safety Warnings**: Displays safety warnings for potentially dangerous operations
 - **Working Directory Selection**: Choose where commands should be executed
@@ -17,7 +17,7 @@ Tashi frontend is an Electron-based desktop application that provides a user-fri
 ### Prerequisites
 
 - **Node.js** (v16 or higher)
-- **Tashi Backend** running on `http://localhost:8080`
+- **NLP-Automation Backend** running on `http://localhost:8080`
 
 ### Installation
 
@@ -67,10 +67,10 @@ The frontend can also be run as a web application using Docker:
 
 ```bash
 # Build Docker image
-docker build -t tashi-frontend .
+docker build -t nlp-automation-frontend .
 
 # Run container
-docker run -p 3000:3000 tashi-frontend
+docker run -p 3000:3000 nlp-automation-frontend
 ```
 
 Or use the docker-compose from the root directory:
@@ -115,7 +115,7 @@ frontend/
 
 ### styles.css
 - Application styling
-- Implements the Tashi color scheme (#1192DC, #FFFFFF, #202020)
+- Implements the NLP-Automation color scheme (#1192DC, #FFFFFF, #202020)
 - Responsive design rules
 - Modern UI components
 
@@ -141,8 +141,8 @@ The `package.json` includes configuration for electron-builder:
 ```json
 {
   "build": {
-    "appId": "com.tashi.desktop",
-    "productName": "Tashi",
+    "appId": "com.nlp-automation.desktop",
+    "productName": "NLP-Automation",
     "directories": {
       "output": "dist"
     },
@@ -230,4 +230,4 @@ For issues and questions:
 
 ---
 
-**Note**: This is an Electron desktop application that requires the Tashi backend to be running for full functionality. Always ensure the backend is accessible before using the frontend.
+**Note**: This is an Electron desktop application that requires the NLP-Automation backend to be running for full functionality. Always ensure the backend is accessible before using the frontend.

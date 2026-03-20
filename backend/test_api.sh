@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Test script for Tashi Backend API
+# Test script for NLP-Automation Backend API
 # Make sure the server is running before executing this script
 
 BASE_URL="http://localhost:8080"
 
-echo "Testing Tashi Backend API..."
+echo "Testing NLP-Automation Backend API..."
 echo "=============================="
 
 # Test health endpoint

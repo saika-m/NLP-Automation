@@ -1,22 +1,22 @@
 {
-  "name": "tashi",
+  "name": "nlp-automation",
   "version": "1.0.0",
-  "description": "Tashi - Personal Automation Command Executor Desktop App",
+  "description": "NLP-Automation - Personal Automation Command Executor Desktop App",
   "main": "frontend/main.js",
   "scripts": {
     "start": "npm run build:backend && npm run start:frontend",
     "dev": "npm run build:backend && npm run dev:frontend",
     "build": "npm run build:backend && npm run build:frontend",
-    "build:backend": "cd backend && go build -o tashi-backend",
+    "build:backend": "cd backend && go build -o nlp-automation-backend",
     "build:frontend": "cd frontend && npm run build",
     "start:frontend": "cd frontend && npm start",
     "dev:frontend": "cd frontend && npm run dev",
-    "start:backend": "cd backend && ./tashi-backend",
+    "start:backend": "cd backend && ./nlp-automation-backend",
     "test": "npm run test:backend && npm run test:frontend",
     "test:backend": "cd backend && go test ./...",
     "test:frontend": "cd frontend && npm test",
     "install:all": "cd backend && go mod download && cd ../frontend && npm install",
-    "clean": "cd backend && rm -f tashi-backend && cd ../frontend && rm -rf dist node_modules/.cache",
+    "clean": "cd backend && rm -f nlp-automation-backend && cd ../frontend && rm -rf dist node_modules/.cache",
     "package": "cd frontend && npm run build-mac",
     "package:mac": "cd frontend && npm run build-mac",
     "package:win": "cd frontend && npm run build-win",
@@ -31,7 +31,7 @@
     "go",
     "typescript"
   ],
-  "author": "Tashi Team",
+  "author": "NLP-Automation Team",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^8.2.2"
@@ -42,10 +42,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/tashi.git"
+    "url": "git+https://github.com/your-username/nlp-automation.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/tashi/issues"
+    "url": "https://github.com/your-username/nlp-automation/issues"
   },
-  "homepage": "https://github.com/your-username/tashi#readme"
+  "homepage": "https://github.com/your-username/nlp-automation#readme"
 }

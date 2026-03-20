@@ -6,10 +6,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"tashi-backend/internal/api"
-	"tashi-backend/internal/config"
-	"tashi-backend/internal/database"
-	"tashi-backend/internal/services"
+	"nlp-automation-backend/internal/api"
+	"nlp-automation-backend/internal/config"
+	"nlp-automation-backend/internal/database"
+	"nlp-automation-backend/internal/services"
 
 	"github.com/joho/godotenv"
 )
@@ -53,7 +53,7 @@ func main() {
 	// Initialize and start server
 	server := api.NewServer(cfg, taskService, commandService, systemService, officeService, confirmationService)
 
-	log.Printf("Starting Tashi Office Super Tool backend server on port %s", cfg.Port)
+	log.Printf("Starting NLP-Automation Office Super Tool backend server on port %s", cfg.Port)
 	log.Printf("System: %s %s", systemService.GetCachedSystemInfo().OS.Name, systemService.GetCachedSystemInfo().OS.Version)
 	log.Printf("Office capabilities detected...")
 

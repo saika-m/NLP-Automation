@@ -1,7 +1,7 @@
-// Tashi Web Application - Pure Web Implementation
+// NLP-Automation Web Application - Pure Web Implementation
 // Version 2.0.0
 
-class TashiWebApp {
+class NLPAutomationWebApp {
   constructor() {
     // Detect if running in Electron
     this.isElectron = this.detectElectron();
@@ -64,7 +64,7 @@ class TashiWebApp {
   }
 
   async init() {
-    console.log(`Tashi Web App initialized in ${this.config.appMode} mode`);
+    console.log(`NLP-Automation Web App initialized in ${this.config.appMode} mode`);
     
     await this.initStorage();
     await this.loadSettings();
@@ -78,7 +78,7 @@ class TashiWebApp {
     setInterval(() => this.checkBackendStatus(), 10000);
     setInterval(() => this.updateClock(), 1000);
     
-    this.log('info', 'Tashi application initialized successfully');
+    this.log('info', 'NLP-Automation application initialized successfully');
     
     // Add mode indicator
     this.addModeIndicator();
@@ -117,7 +117,7 @@ class TashiWebApp {
     this.storage = {
       get: (key, defaultValue = null) => {
         try {
-          const item = localStorage.getItem(`tashi-${key}`);
+          const item = localStorage.getItem(`nlp-automation-${key}`);
           return item ? JSON.parse(item) : defaultValue;
         } catch (error) {
           console.warn('Failed to get item from storage:', error);
@@ -127,7 +127,7 @@ class TashiWebApp {
       
       set: (key, value) => {
         try {
-          localStorage.setItem(`tashi-${key}`, JSON.stringify(value));
+          localStorage.setItem(`nlp-automation-${key}`, JSON.stringify(value));
         } catch (error) {
           console.warn('Failed to set item in storage:', error);
         }
@@ -135,7 +135,7 @@ class TashiWebApp {
       
       delete: (key) => {
         try {
-          localStorage.removeItem(`tashi-${key}`);
+          localStorage.removeItem(`nlp-automation-${key}`);
         } catch (error) {
           console.warn('Failed to delete item from storage:', error);
         }
@@ -830,7 +830,7 @@ class TashiWebApp {
 
     try {
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const filename = `tashi-commands-${timestamp}.sh`;
+      const filename = `nlp-automation-commands-${timestamp}.sh`;
       const commandsText = this.currentCommands.join('\n');
       
       this.downloadFile(filename, commandsText, 'text/plain');
@@ -902,7 +902,7 @@ class TashiWebApp {
         <div class="activity-item">
           <span class="activity-icon">🎯</span>
           <div class="activity-content">
-            <div class="activity-title">Welcome to Tashi!</div>
+            <div class="activity-title">Welcome to NLP-Automation!</div>
             <div class="activity-desc">Your AI-powered automation assistant is ready</div>
           </div>
           <div class="activity-time">Just now</div>
@@ -1064,7 +1064,7 @@ class TashiWebApp {
 
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  window.app = new TashiWebApp();
+  window.app = new NLPAutomationWebApp();
 });
 
 // Global functions for onclick handlers
@@ -1076,5 +1076,5 @@ window.switchView = (view) => {
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = TashiWebApp;
+  module.exports = NLPAutomationWebApp;
 }

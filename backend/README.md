@@ -1,6 +1,6 @@
-# Tashi Backend
+# NLP-Automation Backend
 
-Tashi backend is a Go-based API server that provides AI-powered command generation and execution capabilities for the Tashi desktop application. It uses OpenAI's GPT models to convert natural language descriptions into system commands that can be safely executed.
+NLP-Automation backend is a Go-based API server that provides AI-powered command generation and execution capabilities for the NLP-Automation desktop application. It uses OpenAI's GPT models to convert natural language descriptions into system commands that can be safely executed.
 
 ## Features
 
@@ -50,10 +50,10 @@ Alternatively, you can use Docker:
 
 ```bash
 # Build the Docker image
-docker build -t tashi-backend .
+docker build -t nlp-automation-backend .
 
 # Run the container
-docker run -p 8080:8080 -e OPENAI_API_KEY=your-key tashi-backend
+docker run -p 8080:8080 -e OPENAI_API_KEY=your-key nlp-automation-backend
 ```
 
 Or use the docker-compose from the root directory:
@@ -68,7 +68,7 @@ docker-compose up -d
 |----------|-------------|---------|
 | `PORT` | Server port | `8080` |
 | `OPENAI_API_KEY` | Your OpenAI API key | Required |
-| `DB_PATH` | SQLite database file path | `./tashi.db` |
+| `DB_PATH` | SQLite database file path | `./nlp-automation.db` |
 | `UPLOAD_DIR` | Directory for uploaded files | `./uploads` |
 | `OUTPUT_DIR` | Directory for generated scripts | `./outputs` |
 | `TEMP_DIR` | Directory for temporary files | `./temp` |
@@ -124,7 +124,7 @@ curl -O http://localhost:8080/api/tasks/your-task-id/download
 ## Project Structure
 
 ```
-tashi-backend/
+nlp-automation-backend/
 ├── main.go                 # Application entry point
 ├── go.mod                  # Go module definition
 ├── .env.example            # Environment variables template
@@ -170,7 +170,7 @@ tashi-backend/
 
 ## Safety Features
 
-Tashi includes several safety features to protect users:
+NLP-Automation includes several safety features to protect users:
 
 1. **Script Analysis**: AI-powered analysis to detect potentially dangerous operations
 2. **Pattern Detection**: Built-in patterns to identify risky commands
@@ -189,17 +189,17 @@ go test ./...
 ### Building for Production
 
 ```bash
-go build -o tashi-backend main.go
+go build -o nlp-automation-backend main.go
 ```
 
 ### Docker Support
 
 ```bash
 # Build Docker image
-docker build -t tashi-backend .
+docker build -t nlp-automation-backend .
 
 # Run with Docker
-docker run -p 8080:8080 -e OPENAI_API_KEY=your-key tashi-backend
+docker run -p 8080:8080 -e OPENAI_API_KEY=your-key nlp-automation-backend
 ```
 
 ## Contributing

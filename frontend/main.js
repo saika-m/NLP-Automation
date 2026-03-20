@@ -1,11 +1,11 @@
-// Tashi Electron Main Process
+// NLP-Automation Electron Main Process
 // Version 2.0.0
 
 const { app, BrowserWindow, ipcMain, dialog, shell, Menu } = require('electron');
 const path = require('path');
 const isDev = process.env.NODE_ENV === 'development';
 
-class TashiMain {
+class NLPAutomationMain {
   constructor() {
     this.mainWindow = null;
     this.isQuiting = false;
@@ -16,7 +16,7 @@ class TashiMain {
   init() {
     // Set app user model id for Windows
     if (process.platform === 'win32') {
-      app.setAppUserModelId('com.tashi.desktop');
+      app.setAppUserModelId('com.nlp-automation.desktop');
     }
 
     // Configure security
@@ -269,7 +269,7 @@ class TashiMain {
         label: 'Help',
         submenu: [
           {
-            label: 'About Tashi',
+            label: 'About NLP-Automation',
             click: () => {
               this.showAbout();
             }
@@ -277,13 +277,13 @@ class TashiMain {
           {
             label: 'Documentation',
             click: () => {
-              shell.openExternal('https://github.com/tashi-app/tashi');
+              shell.openExternal('https://github.com/nlp-automation-app/nlp-automation');
             }
           },
           {
             label: 'Report Bug',
             click: () => {
-              shell.openExternal('https://github.com/tashi-app/tashi/issues');
+              shell.openExternal('https://github.com/nlp-automation-app/nlp-automation/issues');
             }
           },
           { type: 'separator' },
@@ -389,7 +389,7 @@ class TashiMain {
     // Notifications
     ipcMain.handle('show-notification', (event, options) => {
       const notification = new Notification({
-        title: options.title || 'Tashi',
+        title: options.title || 'NLP-Automation',
         body: options.body || '',
         icon: this.getIconPath(),
         silent: options.silent || false
@@ -403,7 +403,7 @@ class TashiMain {
     ipcMain.handle('show-message-box', async (event, options) => {
       const result = await dialog.showMessageBox(this.mainWindow, {
         type: options.type || 'info',
-        title: options.title || 'Tashi',
+        title: options.title || 'NLP-Automation',
         message: options.message || '',
         detail: options.detail || '',
         buttons: options.buttons || ['OK'],
@@ -551,7 +551,7 @@ class TashiMain {
         </head>
         <body>
           <div class="logo">🚀</div>
-          <div class="title">Tashi</div>
+          <div class="title">NLP-Automation</div>
           <div class="version">Version ${app.getVersion()}</div>
           <div class="description">
             AI-Powered Automation Assistant<br>
@@ -573,7 +573,7 @@ class TashiMain {
 }
 
 // Initialize the application
-const tashiMain = new TashiMain();
+const nlpAutomationMain = new NLPAutomationMain();
 
 // Handle certificate errors
 app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
@@ -599,4 +599,4 @@ app.on('web-contents-created', (event, contents) => {
 });
 
 // Export for testing
-module.exports = TashiMain;
+module.exports = NLPAutomationMain;

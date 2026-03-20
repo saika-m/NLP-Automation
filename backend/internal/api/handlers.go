@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"tashi-backend/internal/services"
+	"nlp-automation-backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -193,7 +193,7 @@ func (h *Handlers) HealthCheck(c *gin.Context) {
 		"timestamp": gin.H{
 			"unix": c.Request.Context().Value("timestamp"),
 		},
-		"service": "tashi-backend",
+		"service": "nlp-automation-backend",
 		"version": "1.0.0",
 	})
 }

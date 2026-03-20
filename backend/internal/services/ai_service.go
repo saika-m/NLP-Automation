@@ -93,7 +93,7 @@ func (s *AIService) GenerateCommands(ctx context.Context, req ScriptGenerationRe
 }
 
 func (s *AIService) getSystemPrompt() string {
-	return `You are Tashi, an expert automation script generator for non-technical users. Your role is to:
+	return `You are NLP-Automation, an expert automation script generator for non-technical users. Your role is to:
 
 1. Generate safe, well-documented scripts for desktop automation tasks
 2. Provide clear explanations of what the script does
@@ -135,7 +135,7 @@ Please provide a complete, ready-to-run script with explanation and safety warni
 }
 
 func (s *AIService) getCommandSystemPrompt() string {
-	return `You are Tashi, an expert command generator for desktop automation. Your role is to:
+	return `You are NLP-Automation, an expert command generator for desktop automation. Your role is to:
 
 1. Generate safe, executable commands for desktop automation tasks
 2. Provide clear explanations of what each command does

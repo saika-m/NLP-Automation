@@ -46,7 +46,7 @@ class PlatformAdapter {
     if (this.isWeb && typeof window !== 'undefined') {
       window.ElectronStore = class WebStore {
         constructor() {
-          this.prefix = 'tashi-';
+          this.prefix = 'nlp-automation-';
         }
 
         get(key, defaultValue = null) {
@@ -428,7 +428,7 @@ class PlatformAdapter {
   showWebNotification(options) {
     if ('Notification' in window) {
       if (Notification.permission === 'granted') {
-        new Notification(options.title || 'Tashi', {
+        new Notification(options.title || 'NLP-Automation', {
           body: options.body || '',
           icon: '/favicon.ico',
           silent: options.silent || false
@@ -437,7 +437,7 @@ class PlatformAdapter {
       } else if (Notification.permission !== 'denied') {
         Notification.requestPermission().then(permission => {
           if (permission === 'granted') {
-            new Notification(options.title || 'Tashi', {
+            new Notification(options.title || 'NLP-Automation', {
               body: options.body || '',
               icon: '/favicon.ico',
               silent: options.silent || false

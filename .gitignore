@@ -8,7 +8,7 @@ yarn-error.log*
 # Build outputs
 **/dist
 **/build
-backend/tashi-backend
+backend/nlp-automation-backend
 backend/outputs/
 
 # Environment files

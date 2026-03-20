@@ -1,21 +1,21 @@
 services:
-  tashi-backend:
+  nlp-automation-backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: tashi-backend
+    container_name: nlp-automation-backend
     privileged: true
     ports:
       - "8080:8080"
     environment:
       - PORT=8080
       - GIN_MODE=release
-      - DB_PATH=/app/data/tashi.db
+      - DB_PATH=/app/data/nlp-automation.db
       - UPLOAD_DIR=/app/data/uploads
       - OUTPUT_DIR=/app/data/outputs
       - TEMP_DIR=/app/data/temp
       - JWT_SECRET=your_jwt_secret_here
-      - CORS_ORIGINS=http://localhost:3000,http://localhost:3001,http://tashi-frontend:3000
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:3001,http://nlp-automation-frontend:3000
       - MAX_SCRIPT_SIZE=10485760
       - ALLOWED_EXTENSIONS=.ps1,.sh,.py,.exe,.bat
       - COMPILATION_TIMEOUT=300
@@ -24,12 +24,12 @@ services:
     env_file:
       - backend/.env
     volumes:
-      - tashi_data:/app/data
-      - tashi_uploads:/app/data/uploads
-      - tashi_outputs:/app/data/outputs
+      - nlp-automation_data:/app/data
+      - nlp-automation_uploads:/app/data/uploads
+      - nlp-automation_outputs:/app/data/outputs
       - /:/host:rw
     networks:
-      - tashi-network
+      - nlp-automation-network
     restart: on-failure:3
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
@@ -38,18 +38,18 @@ services:
       retries: 3
       start_period: 30s
 
-  tashi-frontend:
+  nlp-automation-frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: tashi-frontend
+    container_name: nlp-automation-frontend
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
       - REACT_APP_API_URL=http://localhost:8080
     networks:
-      - tashi-network
+      - nlp-automation-network
     restart: on-failure:3
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/"]
@@ -58,16 +58,16 @@ services:
       retries: 3
       start_period: 60s
     depends_on:
-      - tashi-backend
+      - nlp-automation-backend
 
 networks:
-  tashi-network:
+  nlp-automation-network:
     driver: bridge
 
 volumes:
-  tashi_data:
+  nlp-automation_data:
     driver: local
-  tashi_uploads:
+  nlp-automation_uploads:
     driver: local
-  tashi_outputs:
+  nlp-automation_outputs:
     driver: local

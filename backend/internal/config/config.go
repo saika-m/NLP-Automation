@@ -43,7 +43,7 @@ func Load() *Config {
 
 		OpenAIAPIKey: getEnv("OPENAI_API_KEY", ""),
 
-		DBPath: getEnv("DB_PATH", "./tashi.db"),
+		DBPath: getEnv("DB_PATH", "./nlp-automation.db"),
 
 		UploadDir: getEnv("UPLOAD_DIR", "./uploads"),
 		OutputDir: getEnv("OUTPUT_DIR", "./outputs"),

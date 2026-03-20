@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"tashi-backend/internal/database"
+	"nlp-automation-backend/internal/database"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"

@@ -1,4 +1,4 @@
-module tashi-backend
+module nlp-automation-backend
 
 go 1.21
 

@@ -1,10 +1,10 @@
-// Tashi Electron Wrapper - Simple wrapper for the web app
+// NLP-Automation Electron Wrapper - Simple wrapper for the web app
 // Version 2.0.0
 
 const { app, BrowserWindow, ipcMain, dialog, shell, Menu } = require('electron');
 const path = require('path');
 
-class TashiElectronApp {
+class NLPAutomationElectronApp {
   constructor() {
     this.mainWindow = null;
     this.isQuiting = false;
@@ -14,7 +14,7 @@ class TashiElectronApp {
   init() {
     // Set app user model id for Windows
     if (process.platform === 'win32') {
-      app.setAppUserModelId('com.tashi.desktop');
+      app.setAppUserModelId('com.nlp-automation.desktop');
     }
 
     // Set up event handlers
@@ -199,7 +199,7 @@ class TashiElectronApp {
         label: 'Help',
         submenu: [
           {
-            label: 'About Tashi',
+            label: 'About NLP-Automation',
             click: () => {
               this.showAbout();
             }
@@ -207,7 +207,7 @@ class TashiElectronApp {
           {
             label: 'Documentation',
             click: () => {
-              shell.openExternal('https://github.com/tashi-app/tashi');
+              shell.openExternal('https://github.com/nlp-automation-app/nlp-automation');
             }
           }
         ]
@@ -308,7 +308,7 @@ class TashiElectronApp {
       
       if (Notification.isSupported()) {
         const notification = new Notification({
-          title: options.title || 'Tashi',
+          title: options.title || 'NLP-Automation',
           body: options.body || '',
           icon: this.getIconPath(),
           silent: options.silent || false
@@ -354,8 +354,8 @@ class TashiElectronApp {
   showAbout() {
     dialog.showMessageBox(this.mainWindow, {
       type: 'info',
-      title: 'About Tashi',
-      message: 'Tashi v2.0.0',
+      title: 'About NLP-Automation',
+      message: 'NLP-Automation v2.0.0',
       detail: 'AI-Powered Automation Assistant\nBuilt with Electron and Web Technologies',
       buttons: ['OK']
     });
@@ -363,7 +363,7 @@ class TashiElectronApp {
 }
 
 // Initialize the application
-new TashiElectronApp();
+new NLPAutomationElectronApp();
 
 // Handle certificate errors in development
 app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {

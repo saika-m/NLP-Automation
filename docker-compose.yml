@@ -1,0 +1,73 @@
+services:
+  tashi-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tashi-backend
+    privileged: true
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - GIN_MODE=release
+      - DB_PATH=/app/data/tashi.db
+      - UPLOAD_DIR=/app/data/uploads
+      - OUTPUT_DIR=/app/data/outputs
+      - TEMP_DIR=/app/data/temp
+      - JWT_SECRET=your_jwt_secret_here
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:3001,http://tashi-frontend:3000
+      - MAX_SCRIPT_SIZE=10485760
+      - ALLOWED_EXTENSIONS=.ps1,.sh,.py,.exe,.bat
+      - COMPILATION_TIMEOUT=300
+      - RATE_LIMIT_REQUESTS=100
+      - RATE_LIMIT_WINDOW=3600
+    env_file:
+      - backend/.env
+    volumes:
+      - tashi_data:/app/data
+      - tashi_uploads:/app/data/uploads
+      - tashi_outputs:/app/data/outputs
+      - /:/host:rw
+    networks:
+      - tashi-network
+    restart: on-failure:3
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  tashi-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tashi-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_API_URL=http://localhost:8080
+    networks:
+      - tashi-network
+    restart: on-failure:3
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 120s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    depends_on:
+      - tashi-backend
+
+networks:
+  tashi-network:
+    driver: bridge
+
+volumes:
+  tashi_data:
+    driver: local
+  tashi_uploads:
+    driver: local
+  tashi_outputs:
+    driver: local

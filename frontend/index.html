@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tashi - AI-Powered Automation Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🚀</span>
+                    <span class="logo-text">Tashi</span>
+                </div>
+                <div class="version">v2.0.0</div>
+            </div>
+            
+            <div class="nav-menu">
+                <button class="nav-item active" data-view="dashboard">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Dashboard</span>
+                </button>
+                <button class="nav-item" data-view="commands">
+                    <span class="nav-icon">⚡</span>
+                    <span class="nav-text">Commands</span>
+                </button>
+                <button class="nav-item" data-view="office">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Office Suite</span>
+                </button>
+                <button class="nav-item" data-view="system">
+                    <span class="nav-icon">💻</span>
+                    <span class="nav-text">System</span>
+                </button>
+                <button class="nav-item" data-view="web">
+                    <span class="nav-icon">🌐</span>
+                    <span class="nav-text">Web Tools</span>
+                </button>
+                <button class="nav-item" data-view="testing">
+                    <span class="nav-icon">🧪</span>
+                    <span class="nav-text">Testing</span>
+                </button>
+                <button class="nav-item" data-view="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Settings</span>
+                </button>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="status-section">
+                    <div id="backend-status" class="status-indicator offline">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Backend: Offline</span>
+                    </div>
+                    <div id="ai-status" class="status-indicator offline">
+                        <span class="status-dot"></span>
+                        <span class="status-text">AI: Offline</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="header-bar">
+                <div class="header-left">
+                    <h1 id="view-title">Dashboard</h1>
+                    <div class="breadcrumb">
+                        <span id="breadcrumb-path">Home</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="system-info">
+                        <span id="platform-info">Loading...</span>
+                        <span class="separator">•</span>
+                        <span id="memory-info">RAM: --</span>
+                        <span class="separator">•</span>
+                        <span id="time-info">--:--</span>
+                    </div>
+                    <button class="header-btn" id="refresh-all" title="Refresh All">
+                        <span class="btn-icon">🔄</span>
+                    </button>
+                    <button class="header-btn" id="minimize-btn" title="Minimize">
+                        <span class="btn-icon">−</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view active">
+                <div class="dashboard-grid">
+                    <!-- Quick Stats -->
+                    <div class="stats-card">
+                        <h3>📊 Quick Stats</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value" id="commands-executed">0</div>
+                                <div class="stat-label">Commands Executed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="files-processed">0</div>
+                                <div class="stat-label">Files Processed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="time-saved">0h</div>
+                                <div class="stat-label">Time Saved</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions-card">
+                        <h3>⚡ Quick Actions</h3>
+                        <div class="quick-actions-grid">
+                            <button class="quick-action-btn" onclick="switchView('commands')">
+                                <span class="action-icon">🤖</span>
+                                <span class="action-text">Generate Commands</span>
+                            </button>
+                            <button class="quick-action-btn" onclick="switchView('office')">
+                                <span class="action-icon">📊</span>
+                                <span class="action-text">Office Tools</span>
+                            </button>
+                            <button class="quick-action-btn" onclick="switchView('system')">
+                                <span class="action-icon">💻</span>
+                                <span class="action-text">System Tasks</span>
+                            </button>
+                            <button class="quick-action-btn" onclick="switchView('web')">
+                                <span class="action-icon">🌐</span>
+                                <span class="action-text">Web Automation</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activities -->
+                    <div class="activity-card">
+                        <h3>📋 Recent Activities</h3>
+                        <div id="recent-activities" class="activity-list">
+                            <div class="activity-item">
+                                <span class="activity-icon">🎯</span>
+                                <div class="activity-content">
+                                    <div class="activity-title">Welcome to Tashi!</div>
+                                    <div class="activity-desc">Your AI-powered automation assistant is ready</div>
+                                </div>
+                                <div class="activity-time">Just now</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Working Directory -->
+                    <div class="directory-card">
+                        <h3>📁 Working Directory</h3>
+                        <div class="directory-selector">
+                            <input type="text" id="working-dir" placeholder="Enter working directory path..." value="">
+                            <button id="select-dir-btn" class="btn-icon-only" title="Browse">📂</button>
+                        </div>
+                        <div id="directory-info" class="directory-info hidden"></div>
+                        <div class="directory-suggestions">
+                            <button class="dir-suggestion" onclick="setWorkingDir('desktop')">🖥️ Desktop</button>
+                            <button class="dir-suggestion" onclick="setWorkingDir('downloads')">📥 Downloads</button>
+                            <button class="dir-suggestion" onclick="setWorkingDir('documents')">📄 Documents</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Commands View -->
+            <div id="commands-view" class="view">
+                <div class="view-content">
+                    <!-- AI Prompt Section -->
+                    <section class="prompt-section">
+                        <h2>🤖 AI Command Generator</h2>
+                        <div class="prompt-container">
+                            <div class="prompt-input-section">
+                                <div class="prompt-templates">
+                                    <h4>💡 Prompt Templates</h4>
+                                    <div class="template-grid">
+                                        <button class="template-btn" onclick="useTemplate('file-management')">
+                                            📁 File Management
+                                        </button>
+                                        <button class="template-btn" onclick="useTemplate('data-processing')">
+                                            📊 Data Processing
+                                        </button>
+                                        <button class="template-btn" onclick="useTemplate('system-maintenance')">
+                                            🔧 System Maintenance
+                                        </button>
+                                        <button class="template-btn" onclick="useTemplate('development')">
+                                            👨‍💻 Development
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="prompt-composer">
+                                    <label for="task-description">💬 Describe your task in detail:</label>
+                                    <textarea 
+                                        id="task-description" 
+                                        placeholder="Be specific about what you want to accomplish. For example:
+• Create a backup of all .txt files in my Documents folder
+• Organize photos by date and move them to yearly folders
+• Find and remove duplicate files in my Downloads folder
+• Set up a new project directory with standard structure"
+                                        rows="6"
+                                        maxlength="2000">
+                                    </textarea>
+                                    <div class="char-counter">
+                                        <span id="char-count">0</span>/2000 characters
+                                    </div>
+                                </div>
+
+                                <div class="prompt-options">
+                                    <div class="option-group">
+                                        <label>🎯 Task Complexity:</label>
+                                        <select id="task-complexity">
+                                            <option value="simple">Simple (1-3 commands)</option>
+                                            <option value="moderate" selected>Moderate (4-10 commands)</option>
+                                            <option value="complex">Complex (10+ commands)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="option-group">
+                                        <label>🔒 Safety Level:</label>
+                                        <select id="safety-level">
+                                            <option value="high" selected>High (Extra cautious)</option>
+                                            <option value="medium">Medium (Standard)</option>
+                                            <option value="low">Low (Minimal checks)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="option-group">
+                                        <label>📋 Output Format:</label>
+                                        <select id="output-format">
+                                            <option value="detailed" selected>Detailed (with explanations)</option>
+                                            <option value="concise">Concise (commands only)</option>
+                                            <option value="interactive">Interactive (step-by-step)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="execution-options">
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="dry-run" checked>
+                                        <label for="dry-run">🔍 Preview commands before execution</label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="create-backup">
+                                        <label for="create-backup">💾 Create backup before making changes</label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="verbose-output">
+                                        <label for="verbose-output">📝 Show verbose output</label>
+                                    </div>
+                                </div>
+
+                                <div class="action-buttons">
+                                    <button type="button" id="generate-commands-btn" class="btn btn-primary">
+                                        <span class="btn-icon">✨</span>
+                                        <span class="btn-text">Generate Commands</span>
+                                    </button>
+                                    <button type="button" id="save-template-btn" class="btn btn-secondary">
+                                        <span class="btn-icon">💾</span>
+                                        <span class="btn-text">Save as Template</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quick Examples -->
+                            <div class="examples-section">
+                                <h4>🎯 Quick Examples</h4>
+                                <div class="examples-grid">
+                                    <div class="example-card" onclick="setExample('file-backup')">
+                                        <div class="example-icon">📁</div>
+                                        <div class="example-content">
+                                            <h5>Backup Important Files</h5>
+                                            <p>Create timestamped backups of documents and photos</p>
+                                        </div>
+                                    </div>
+                                    <div class="example-card" onclick="setExample('photo-organization')">
+                                        <div class="example-icon">🖼️</div>
+                                        <div class="example-content">
+                                            <h5>Organize Photos</h5>
+                                            <p>Sort images by date and create folder structure</p>
+                                        </div>
+                                    </div>
+                                    <div class="example-card" onclick="setExample('cleanup-downloads')">
+                                        <div class="example-icon">🗑️</div>
+                                        <div class="example-content">
+                                            <h5>Clean Downloads</h5>
+                                            <p>Remove old files and organize by type</p>
+                                        </div>
+                                    </div>
+                                    <div class="example-card" onclick="setExample('project-setup')">
+                                        <div class="example-icon">💻</div>
+                                        <div class="example-content">
+                                            <h5>Project Setup</h5>
+                                            <p>Create standard project directory structure</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Generated Commands Section -->
+                    <section class="commands-section">
+                        <div class="section-header">
+                            <h2>📋 Generated Commands</h2>
+                            <div class="section-actions">
+                                <button id="copy-commands-btn" class="btn btn-ghost" disabled>
+                                    <span class="btn-icon">📋</span>
+                                    <span class="btn-text">Copy</span>
+                                </button>
+                                <button id="export-commands-btn" class="btn btn-ghost" disabled>
+                                    <span class="btn-icon">📤</span>
+                                    <span class="btn-text">Export</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="commands-container" class="commands-container">
+                            <div class="empty-state">
+                                <div class="empty-icon">🤖</div>
+                                <h3>Ready to Generate Commands</h3>
+                                <p>Describe your task above and I'll create the perfect commands for you!</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Execution Results -->
+                    <section id="execution-section" class="execution-section hidden">
+                        <div class="section-header">
+                            <h2>🎯 Execution Results</h2>
+                            <div class="section-actions">
+                                <button id="clear-results-btn" class="btn btn-ghost">
+                                    <span class="btn-icon">🗑️</span>
+                                    <span class="btn-text">Clear</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="execution-results">
+                            <div class="result-header">
+                                <div class="result-status-container">
+                                    <span id="result-status" class="result-status">Ready</span>
+                                    <span id="execution-time" class="execution-time"></span>
+                                </div>
+                                <div class="result-actions">
+                                    <button id="rerun-btn" class="btn btn-sm btn-secondary">
+                                        <span class="btn-icon">🔄</span>
+                                        <span class="btn-text">Rerun</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="result-content">
+                                <div class="result-tabs">
+                                    <button class="result-tab active" data-tab="output">Output</button>
+                                    <button class="result-tab" data-tab="errors">Errors</button>
+                                    <button class="result-tab" data-tab="summary">Summary</button>
+                                </div>
+                                <div class="result-panels">
+                                    <div id="output-panel" class="result-panel active">
+                                        <pre id="command-output" class="command-output"></pre>
+                                    </div>
+                                    <div id="errors-panel" class="result-panel">
+                                        <pre id="command-errors" class="command-errors"></pre>
+                                    </div>
+                                    <div id="summary-panel" class="result-panel">
+                                        <div id="execution-summary" class="execution-summary"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Office View -->
+            <div id="office-view" class="view">
+                <div class="view-content">
+                    <section class="office-section">
+                        <h2>📊 Office Suite Integration</h2>
+                        
+                        <div class="office-capabilities">
+                            <div class="capability-grid">
+                                <div class="capability-card">
+                                    <div class="capability-icon">📈</div>
+                                    <h4>Excel Automation</h4>
+                                    <p>Create, modify, and analyze spreadsheets</p>
+                                    <div class="capability-status" id="excel-status">Checking...</div>
+                                </div>
+                                <div class="capability-card">
+                                    <div class="capability-icon">📝</div>
+                                    <h4>Word Processing</h4>
+                                    <p>Document creation and formatting</p>
+                                    <div class="capability-status" id="word-status">Checking...</div>
+                                </div>
+                                <div class="capability-card">
+                                    <div class="capability-icon">🎨</div>
+                                    <h4>PowerPoint</h4>
+                                    <p>Presentation creation and editing</p>
+                                    <div class="capability-status" id="powerpoint-status">Checking...</div>
+                                </div>
+                                <div class="capability-card">
+                                    <div class="capability-icon">📧</div>
+                                    <h4>Outlook</h4>
+                                    <p>Email management and automation</p>
+                                    <div class="capability-status" id="outlook-status">Checking...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="office-actions">
+                            <form id="office-form" class="office-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="office-app">Application:</label>
+                                        <select id="office-app" required>
+                                            <option value="">Select Application</option>
+                                            <option value="excel">Excel</option>
+                                            <option value="word">Word</option>
+                                            <option value="powerpoint">PowerPoint</option>
+                                            <option value="outlook">Outlook</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="office-file">File Path (optional):</label>
+                                        <input type="text" id="office-file" placeholder="Path to existing file">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="office-description">Action Description:</label>
+                                    <textarea 
+                                        id="office-description" 
+                                        placeholder="Describe what you want to do..." 
+                                        rows="4"
+                                        required>
+                                    </textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="btn-icon">🚀</span>
+                                    <span class="btn-text">Execute Office Action</span>
+                                </button>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- System View -->
+            <div id="system-view" class="view">
+                <div class="view-content">
+                    <section class="system-section">
+                        <h2>💻 System Information & Tools</h2>
+                        
+                        <div class="system-grid">
+                            <div class="system-card">
+                                <h3>🖥️ System Details</h3>
+                                <div id="system-details" class="system-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Platform:</span>
+                                        <span class="detail-value" id="system-platform">Loading...</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Architecture:</span>
+                                        <span class="detail-value" id="system-arch">Loading...</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Memory:</span>
+                                        <span class="detail-value" id="system-memory">Loading...</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Storage:</span>
+                                        <span class="detail-value" id="system-storage">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="system-card">
+                                <h3>📊 Performance</h3>
+                                <div id="system-performance" class="performance-metrics">
+                                    <div class="metric-item">
+                                        <span class="metric-label">CPU Usage:</span>
+                                        <div class="metric-bar">
+                                            <div class="metric-fill" style="width: 0%"></div>
+                                        </div>
+                                        <span class="metric-value">0%</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-label">Memory Usage:</span>
+                                        <div class="metric-bar">
+                                            <div class="metric-fill" style="width: 0%"></div>
+                                        </div>
+                                        <span class="metric-value">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Web Tools View -->
+            <div id="web-view" class="view">
+                <div class="view-content">
+                    <section class="web-section">
+                        <h2>🌐 Web Automation Tools</h2>
+                        
+                        <div class="web-tools">
+                            <div class="tool-card">
+                                <h3>🔍 Web Scraping</h3>
+                                <p>Extract data from websites automatically</p>
+                                <button class="btn btn-secondary">Coming Soon</button>
+                            </div>
+                            <div class="tool-card">
+                                <h3>🤖 Browser Automation</h3>
+                                <p>Automate repetitive browser tasks</p>
+                                <button class="btn btn-secondary">Coming Soon</button>
+                            </div>
+                            <div class="tool-card">
+                                <h3>📧 Email Automation</h3>
+                                <p>Send bulk emails and manage campaigns</p>
+                                <button class="btn btn-secondary">Coming Soon</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Testing View -->
+            <div id="testing-view" class="view">
+                <div class="view-content">
+                    <section class="testing-section">
+                        <h2>🧪 Testing & Validation</h2>
+                        
+                        <div class="test-suites">
+                            <div class="test-suite">
+                                <h3>🔧 Backend Tests</h3>
+                                <div class="test-actions">
+                                    <button class="btn btn-primary" onclick="runTest('backend')">
+                                        <span class="btn-icon">▶️</span>
+                                        <span class="btn-text">Run Backend Tests</span>
+                                    </button>
+                                </div>
+                                <div id="backend-test-results" class="test-results"></div>
+                            </div>
+                            
+                            <div class="test-suite">
+                                <h3>🎨 Frontend Tests</h3>
+                                <div class="test-actions">
+                                    <button class="btn btn-primary" onclick="runTest('frontend')">
+                                        <span class="btn-icon">▶️</span>
+                                        <span class="btn-text">Run Frontend Tests</span>
+                                    </button>
+                                </div>
+                                <div id="frontend-test-results" class="test-results"></div>
+                            </div>
+                            
+                            <div class="test-suite">
+                                <h3>🔗 Integration Tests</h3>
+                                <div class="test-actions">
+                                    <button class="btn btn-primary" onclick="runTest('integration')">
+                                        <span class="btn-icon">▶️</span>
+                                        <span class="btn-text">Run Integration Tests</span>
+                                    </button>
+                                </div>
+                                <div id="integration-test-results" class="test-results"></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Settings View -->
+            <div id="settings-view" class="view">
+                <div class="view-content">
+                    <section class="settings-section">
+                        <h2>⚙️ Settings</h2>
+                        
+                        <div class="settings-grid">
+                            <div class="setting-card">
+                                <h3>🤖 AI Configuration</h3>
+                                <div class="setting-group">
+                                    <label for="ai-model">AI Model:</label>
+                                    <select id="ai-model">
+                                        <option value="gpt-4o-mini">GPT-4o Mini (Recommended)</option>
+                                        <option value="gpt-4">GPT-4</option>
+                                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                    </select>
+                                </div>
+                                <div class="setting-group">
+                                    <label for="ai-temperature">Creativity Level:</label>
+                                    <input type="range" id="ai-temperature" min="0" max="1" step="0.1" value="0.3">
+                                    <span class="range-value">0.3</span>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-card">
+                                <h3>🔒 Security</h3>
+                                <div class="setting-group">
+                                    <label>
+                                        <input type="checkbox" id="require-confirmation" checked>
+                                        Require confirmation for destructive operations
+                                    </label>
+                                </div>
+                                <div class="setting-group">
+                                    <label>
+                                        <input type="checkbox" id="auto-backup" checked>
+                                        Auto-backup before file operations
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-card">
+                                <h3>🎨 Appearance</h3>
+                                <div class="setting-group">
+                                    <label for="theme">Theme:</label>
+                                    <select id="theme">
+                                        <option value="light">Light</option>
+                                        <option value="dark">Dark</option>
+                                        <option value="auto">Auto</option>
+                                    </select>
+                                </div>
+                                <div class="setting-group">
+                                    <label for="font-size">Font Size:</label>
+                                    <select id="font-size">
+                                        <option value="small">Small</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="large">Large</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Overlays -->
+    <div id="confirmation-modal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeModal('confirmation-modal')"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="confirmation-title">Confirm Action</h3>
+                <button class="modal-close" onclick="closeModal('confirmation-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="confirmation-message"></div>
+                <div id="confirmation-details"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-yes" class="btn btn-primary">
+                    <span class="btn-icon">✅</span>
+                    <span class="btn-text">Confirm</span>
+                </button>
+                <button id="confirm-no" class="btn btn-secondary" onclick="closeModal('confirmation-modal')">
+                    <span class="btn-icon">❌</span>
+                    <span class="btn-text">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Processing your request...</div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.0.0/marked.min.js"></script>
+    
+    <!-- Web Configuration (only for web mode) -->
+    <script>
+        // Global configuration for web mode
+        if (typeof window !== 'undefined' && 
+            !(typeof window.process === 'object' && window.process.type === 'renderer')) {
+            window.TASHI_CONFIG = {
+                backendUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+                    ? 'http://localhost:8080' 
+                    : window.location.origin,
+                mode: 'web'
+            };
+        }
+    </script>
+    
+    <!-- Load the unified web app -->
+    <script src="web-app.js"></script>
+</body>
+</html>
